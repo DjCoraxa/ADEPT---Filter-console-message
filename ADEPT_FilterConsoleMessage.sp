@@ -17,19 +17,21 @@ char mapSpamMessages[][] =
   "Attempted to create unknown entity type",
   "specified! Verify that SKIN is valid, and has a corresponding options block in the model QC file",
   "BUG: CCSGameMovement::CheckParameters - too many stacking levels.",
-  "using obsolete or unknown material type"
+  "using obsolete or unknown material type",
+  ", but there is no matching entry in propdata.txt.",
+  "LEVEL DESIGN ERROR: Entity"
 };
 
 public Plugin myinfo =
 {
 	name = "ADEPT -> Filter Console Message",
 	author = "Koraks",
-	version = "0.1",
+	version = "0.2",
 	url = "http://www.StudioADEPT.net"
 };
 public void OnPluginStart()
 {
-  CreateConVar("sm_adept_filterconsolemessage_version", "0.1", "Plugin version", FCVAR_DONTRECORD);
+  CreateConVar("sm_adept_filterconsolemessage_version", "0.2", "Plugin version", FCVAR_DONTRECORD);
   blockSoundErrorSpam = CreateConVar("sm_adept_blocksoundspam", "1", "This cvar block type messages 'CSoundEmitterSystemBase::GetParametersForSound:  No such sound Error'", FCVAR_HIDDEN , true, 0.0, true, 1.0);
   blockUTILSpam = CreateConVar("sm_adept_blockutilspam", "1", "This cvar blocks type messages 'UTIL_GetListenServerHost() called from a dedicated server or single-player game.'", FCVAR_HIDDEN , true, 0.0, true, 1.0);
   blockMapSpam = CreateConVar("sm_adept_blockmapspam", "1", "This cvar blocks type messages 'entity_type at loc_entity using obsolete or unknown material type'", FCVAR_HIDDEN , true, 0.0, true, 1.0);
