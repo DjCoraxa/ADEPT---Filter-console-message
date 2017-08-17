@@ -19,14 +19,16 @@ char mapSpamMessages[][] =
   "BUG: CCSGameMovement::CheckParameters - too many stacking levels.",
   "using obsolete or unknown material type",
   ", but there is no matching entry in propdata.txt.",
-  "LEVEL DESIGN ERROR: Entity"
+  "LEVEL DESIGN ERROR: Entity",
+  "Couldn't find any entities named",
+  "DataTable warning: player: Out-of-range value"
 };
 
 public Plugin myinfo =
 {
 	name = "ADEPT -> Filter Console Message",
 	author = "Koraks",
-	version = "0.2",
+	version = "0.3",
 	url = "http://www.StudioADEPT.net"
 };
 public void OnPluginStart()
@@ -67,6 +69,16 @@ public Action Event_OnConsolePrint(const char[] sMessage, LoggingSeverity severi
         if(logOnBlockMessage.BoolValue) PrintToServer("%s%s", PREFIX_LOG, sMessage);
         return Plugin_Handled;
       }
+    }
+    if(StrContains(sMessage, "Inserted ") != -1 && StrContains(sMessage, " with no model") != -1 && StrContains(sMessage, PREFIX_LOG) == -1)
+    {
+      if(logOnBlockMessage.BoolValue) PrintToServer("%s%s", PREFIX_LOG, sMessage);
+      return Plugin_Handled;
+    }
+    if(StrContains(sMessage, "FuncTrackTrain") != -1 && StrContains(sMessage, "has no target.") != -1 && StrContains(sMessage, PREFIX_LOG) == -1)
+    {
+      if(logOnBlockMessage.BoolValue) PrintToServer("%s%s", PREFIX_LOG, sMessage);
+      return Plugin_Handled;
     }
   }
   if(blockUTILSpam.BoolValue)
